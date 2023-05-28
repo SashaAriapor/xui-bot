@@ -1,0 +1,16 @@
+{
+  "name": "install-bot",
+  "version": "1.0.0",
+  "description": "for install xui bot",
+  "main": "install.js",
+  "scripts": {
+    "start": "node install.js",
+    "dev": "nodemon install.js"
+  },
+  "keywords": [],
+  "author": "SashaAriapor",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
