@@ -18,24 +18,31 @@
                     <i class="fa-solid fa-robot icon"></i>
                     <input class="input__field" 
                            type="text" 
-                           placeholder="Bot Name">
+                           placeholder="Bot Name"
+                           id="bot_name"
+                           >
                 </div>
                 <div class="input__icons">
                     <i class="fa fa-key icon"></i>
                     <input class="input__field" 
                            type="text"
-                           placeholder="Bot Token">
+                           placeholder="Bot Token"
+                           id="bot_token"
+                           >
                 </div>
                 <div class="input__icons">
                     <i class="fa-solid fa-paper-plane icon"></i>
                     <input class="input__field" 
-                           type="password"
-                           placeholder="Admin ID">
+                           type="text"
+                           placeholder="Admin ID"
+                           id="admin_id"
+                           >
                 </div>
-                <input type="submit" class="submit__button">
+                <input type="submit" class="submit__button" id="submit_button">
             </form>
         </center>
     </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="./js/main.js"></script>
 </body>
 </html>
