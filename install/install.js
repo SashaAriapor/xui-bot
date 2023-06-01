@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // coonect to mongodb
 
@@ -30,7 +30,6 @@ app.post("/setup", async (req, res) => {
     });
     console.log(setting);
 });
-
 // run server
 
 app.listen(3000, () => {
