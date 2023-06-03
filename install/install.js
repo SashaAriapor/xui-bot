@@ -1,14 +1,16 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-const { SettingModel } = require("./model/setting.model");
-const { log } = require("console");
+const { SettingModel } = require("./models/setting.model");
+
+
+// default variables
+const { panel_username, panel_password, wellcome_message } = require("./default.json");
 
 const app = express();
-
 // server config
 
-app.use(express.json());
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -27,11 +29,20 @@ app.post("/setup", async (req, res) => {
     const setting = await SettingModel.create({
         bot_name,
         bot_token,
-        admin_id
+        admin_id,
+        panel_username,
+        panel_password,
+        wellcome_message
     });
-    console.log(setting);
+    res.json(setting);
 });
 // run server
+
+
+// 404 error => redirect to install.html file
+app.use((req, res, next) => {
+    res.redirect("/install.html");
+});
 
 app.listen(3000, () => {
     console.log(`installer was running on port 3000`);
