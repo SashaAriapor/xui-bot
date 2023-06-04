@@ -2,10 +2,12 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const { SettingModel } = require("./models/setting.model");
-
+const { phoneNumberValidator } = require("./validators/setup.validator");
+const { checkValidat } = require("./middlewares/checkValidat.middleware");
 
 // default variables
 const { panel_username, panel_password, wellcome_message } = require("./default.json");
+
 
 const app = express();
 // server config
@@ -24,7 +26,7 @@ mongoose.connect(DB_URL)
     
 // bot setup route
 
-app.post("/setup", async (req, res) => {
+app.post("/setup", phoneNumberValidator(), checkValidat, async (req, res) => {
     const { bot_name, bot_token, admin_id } = req.body; 
     const setting = await SettingModel.create({
         bot_name,
@@ -44,6 +46,6 @@ app.use((req, res, next) => {
     res.redirect("/install.html");
 });
 
-app.listen(3000, () => {
+app.listen(4000 , () => {
     console.log(`installer was running on port 3000`);
 });
