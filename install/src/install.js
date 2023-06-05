@@ -6,7 +6,7 @@ const { phoneNumberValidator } = require("./validators/setup.validator");
 const { checkValidat } = require("./middlewares/checkValidat.middleware");
 
 // default variables
-const { panel_username, panel_password, wellcome_message } = require("./default.json");
+const { panel_username, panel_password, welcome_message, PORT } = require("../default.json");
 
 
 const app = express();
@@ -34,18 +34,18 @@ app.post("/setup", phoneNumberValidator(), checkValidat, async (req, res) => {
         admin_id,
         panel_username,
         panel_password,
-        wellcome_message
+        welcome_message
     });
     res.json(setting);
 });
-// run server
-
 
 // 404 error => redirect to install.html file
 app.use((req, res, next) => {
     res.redirect("/install.html");
 });
 
-app.listen(4000 , () => {
-    console.log(`installer was running on port 3000`);
+// run server
+
+app.listen(PORT , () => {
+    console.log(`installer was running on port ${PORT}`);
 });

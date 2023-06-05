@@ -2,10 +2,10 @@
   "name": "install-bot",
   "version": "1.0.0",
   "description": "for install xui bot",
-  "main": "install.js",
+  "main": "src/install.js",
   "scripts": {
-    "start": "node install.js",
-    "dev": "nodemon install.js"
+    "start": "node src/install.js",
+    "dev": "nodemon src/install.js"
   },
   "keywords": [],
   "author": "SashaAriapor",
