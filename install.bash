@@ -46,17 +46,20 @@ sudo apt install wget -y
 
 # install mangodb 
 
-wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -sc)/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-sudo systemctl start mongod
-sudo systemctl status mongod
-sudo systemctl enable mongod
+sudo apt install wget curl gnupg2 software-properties-common apt-transport-https ca-certificates lsb-release
+curl -fsSL https://www.mongodb.org/static/pgp/server-6.0.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/mongodb-6.gpg
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+sudo apt update -y
+sudo apt install mongodb-org -y
+sudo systemctl enable --now mongod
+mongod --version
+
 
 # install nodejs 
 
-sudo apt-get install -y nodejs npm
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install nodejs -y
+sudo npm install -g npm@latest
 node -v
 npm -v
 
@@ -80,16 +83,11 @@ cd xui-bot
 mv install /root/
 cd /root/install
 npm i
-npm start
-
-# start firewall
-
-sudo apt-get install -y ufw
-sudo ufw allow ssh 3000/tcp 
-sudo ufw enable
-sudo ufw status
+pm2 start src/install.js
 
 # finnaly
 
-echo -e "${GREEN} installer run as http://localhost:3000/"
+ipv4=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
+
+echo -e "${GREEN} installer run as http://$ipv4:3000"
 
